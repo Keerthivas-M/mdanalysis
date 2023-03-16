@@ -11,10 +11,11 @@
 
 import MDAnalysis as mda
 
-u = mda.Universe("dump_10frames.xyz")
+u = mda.Universe("dump.xyz")
 graphene = u.select_atoms("name C")
 for ts in u.trajectory:
     #https://docs.mdanalysis.org/dev/documentation_pages/topology/guessers.html
+    #guessing the bond in every frame and then update the same in the universe
     bonds=mda.topology.guessers.guess_bonds(atoms=graphene,coords=graphene.positions,box=u.dimensions)
     u.add_TopologyAttr('bonds', bonds)
 	
